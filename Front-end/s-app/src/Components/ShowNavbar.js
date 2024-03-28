@@ -6,9 +6,12 @@ export default function ShowNavbar({children}) {
     const location = useLocation()
     const [showHeader, setShowHeader] = useState(true)
     useEffect(() => {
-        if (location.pathname === '/Login')
+        if (location.pathname === '/')
         {
             setShowHeader(false)
+        }
+        else if (location.pathname === '/Register') {
+          setShowHeader(false)
         }
         else {
             setShowHeader(true)

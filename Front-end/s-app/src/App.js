@@ -7,6 +7,7 @@ import IntDetails from "./Components/IntDetails";
 import Edit from "./Components/Edit";
 import ShowNavbar from "./Components/ShowNavbar";
 import Login from "./Components/Login";
+import Register from "./Components/login-Register/Register";
 class App extends Component {
   
   render() 
@@ -20,11 +21,12 @@ class App extends Component {
           </ShowNavbar>
           
           <Routes>
-            <Route path="/" exact element={<Dashboard />}/>
+            <Route path="/Dashboard" exact element={<Dashboard />}/>
             <Route path="/Interns" exact element={<Interns />}/>
             <Route path="/IntDetails/:id" exact element={<IntDetails />}/>
             <Route path="/Edit/:id" exact element={<Edit />}/>
-            <Route path="/Login" exact element={<Login />} />
+            <Route path="/" exact element={<Login />} />
+            <Route path="/Register" exact element={<Register />} />
           </Routes>
           
         </div>
