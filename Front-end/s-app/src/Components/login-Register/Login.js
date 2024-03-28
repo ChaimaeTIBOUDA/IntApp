@@ -1,10 +1,10 @@
-import { Box, Card, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, TextField, Typography } from '@mui/material'
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { blue, indigo, grey } from '@mui/material/colors';
+import { blue} from '@mui/material/colors';
 import axios from 'axios'
-import '../login.css';
+import './styles.css';
 
 const Login = () => {
 
@@ -16,8 +16,8 @@ const Login = () => {
          axios.post('http://localhost:5000/login', {email, password})
             .then(res => {
                 console.log(res)
-                if(res.data == "Success"){
-                    navigate('/')
+                if(res.data === "Success"){
+                    navigate('/Dashboard')
                 }else {
                     alert("Email or password incorrect")
                 }
@@ -25,31 +25,31 @@ const Login = () => {
 
     }
     return (
-        <div className='login'>
+        <div className='container'>
             <Card sx={{
-                ml:70, mt:20, height: "400px", width: "400px"
+                ml:{xl:75, xs:5, lg:75,md:60, sm:28}, height: "300px", width: "400px"
             }}>
-                <Typography variant='h4' color={blue[500]} sx= {{mt:1, mx:17,mb:1}} >LogIn</Typography>
+                <Typography variant='h4' color={blue[500]} sx= {{mt:1, mx:17,mb:1}} >LOGIN</Typography>
                 <Box method='post'
                 omponent="form"
                 sx={{
-                  '& .MuiTextField-root': { m: 1, width: '25ch' },
+                  '& .MuiTextField-root': { m: 2, width: '40ch' },
                 }}
                 noValidate
                 autoComplete="off">
                     <TextField
                     label="Email"
-                    variant='filled'
+                    variant='outlined'
                         required
                         onChange={(e) => setEmail(e.target.value)} />
                     <TextField
                     label="Password"
                         type="password"
-                        variant='filled'
+                        variant='outlined'
                         required
                         onChange={(e) => setPassword(e.target.value)} />
                         </Box>
-                    <button type='submit' onClick={login}>Login</button>
+                    <Button variant="contained"type='submit' onClick={login}>Login</Button>
                 
             </Card>
         </div>
