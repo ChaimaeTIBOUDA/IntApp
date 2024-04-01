@@ -112,15 +112,16 @@ app.get("/onwait", async (req, res) => {
 .then(users => res.json(users))
 .catch(err => res.json(err))
 })
+//Search for intern by name
 app.get("/search/:key", async (req, res) => {
-     let result = await UserModel.find({
-        "$or": [
-            {
-                nom: {$regex: req.params.key}
-            }
-        ]
-     })
-     res.send(result)
+    let result = await UserModel.find({
+       "$or": [
+           {
+               name: {$regex: req.params.key}
+           }
+       ]
+    })
+    res.send(result)
 })
 app.get("/sort", (req, res) => {
     UserModel.find().sort({name: 1})
