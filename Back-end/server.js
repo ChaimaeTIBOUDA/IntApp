@@ -91,6 +91,8 @@ app.get('/filter', (req, res) => {
     .then(users => res.json(users))
     .catch(err => res.json(err))
 })
+
+//Display  number of interns with state of internship: ongoing
 app.get("/ongoing", (req, res) => {
     UserModel.aggregate([{
         $match: {'stat': 'on going'}
@@ -100,7 +102,7 @@ app.get("/ongoing", (req, res) => {
 .then(users => res.json(users))
 .catch(err => res.json(err))
 })
-
+//Display number of interns with state of internship: onwait
 app.get("/onwait", async (req, res) => {
    UserModel.aggregate([{
         $match: {'stat': 'on wait'}
