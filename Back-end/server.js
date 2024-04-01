@@ -18,7 +18,7 @@ mongoose
 .then(()=> console.log("DATABASE connected"))
 .catch(err=>console.log(err))
 // storage
-/*const Storage = multer.diskstorage({
+const Storage = multer.diskstorage({
 destination: 'uploads',
 filename:(req, file, cb) => {
     cb(null, file.originalname)
@@ -26,12 +26,24 @@ filename:(req, file, cb) => {
 
 const upload = multer({
     storage: Storage
-}).single('testImage')*/
+}).single('testImage')
 //Routes
 // Interns
-app.post("/Add", (req, res) => {
-    UserModel.create(req.body)
-    .then(users => res.json(users))
+// Add intern
+app.post("/Add",upload,(req, res) => {
+    UserModel.create(
+    {name:req.body.name, 
+    firstname:req.body.firstname, 
+    cin:req.body.cin,
+    adress: req.body.adress,
+    phone:req.body.phone,
+    degree: req.body.degree,
+    field: req.body.field,
+    duration: req.body.duration,
+    stat: req.body.stat,
+    image: req.file.filename
+})
+    .then(users => {console.log(users), res.json(users) })
     .catch(err => res.json(err))
 })
 app.get('/', (req, res) => {
