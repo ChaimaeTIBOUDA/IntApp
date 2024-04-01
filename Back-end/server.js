@@ -123,6 +123,7 @@ app.get("/search/:key", async (req, res) => {
     })
     res.send(result)
 })
+//Sort interns by name
 app.get("/sort", (req, res) => {
     UserModel.find().sort({name: 1})
     .then(users => res.json(users))
