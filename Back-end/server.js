@@ -52,6 +52,13 @@ app.get('/', (req, res) => {
     .then(users => res.json(users))
     .catch(err => res.json(err))
 })
+//Display information of specefic intern
+app.get('/User/:id', (req,res) => {
+    const id = req.params.id;
+    UserModel.findById({_id:id})
+    .then(users => res.json(users))
+    .catch(err => res.json(err))
+})
 app.get('/User/:id', (req,res) => {
     const id = req.params.id;
     UserModel.findById({_id:id})
