@@ -59,29 +59,25 @@ app.get('/User/:id', (req,res) => {
     .then(users => res.json(users))
     .catch(err => res.json(err))
 })
-app.get('/User/:id', (req,res) => {
+
+// Edit specific intern
+app.patch('/Edit/:id',  (req, res) => {
     const id = req.params.id;
-    UserModel.findById({_id:id})
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
-})
-app.put('/Edit/:id', async (req, res) => {
-  const id = req.params.id;
-   await UserModel.findByIdAndUpdate({_id:id}, 
-    {name:req.body.name, 
-    firstname:req.body.firstname, 
-    cin:req.body.cin,
-    adress: req.body.adress,
-    phone:req.body.phone,
-    degree: req.body.degree,
-    field: req.body.field,
-    duration: req.body.duration,
-    stat: req.body.stat
-})
-    await UserModel.findById({_id:id})
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
-})
+      UserModel.findByIdAndUpdate({_id:id}, 
+      {name:req.body.name, 
+      firstname:req.body.firstname, 
+      cin:req.body.cin,
+      adress: req.body.adress,
+      phone:req.body.phone,
+      degree: req.body.degree,
+      field: req.body.field,
+      duration: req.body.duration,
+      stat: req.body.stat
+  })
+       UserModel.findById({_id:id})
+      .then(users => res.json(users))
+      .catch(err => res.json(err))
+  })
 app.delete('/deleteUser/:id', (req,res) => {
     const id = req.params.id
     UserModel.findByIdAndDelete({_id: id})
