@@ -157,7 +157,18 @@ catch (err) {
     return res.status(500).send({message: "Internal error"})
 }
 });
-  
+//Add Admin
+ app.post('/register', (req, res) => {
+    AdminModel.create({
+        email: req.body.email,
+        password: req.body.password,
+        firstname: req.body.firstname,
+        name: req.body.name,
+        username: req.body.username
+    })
+    .then(admins => res.json(admins))
+    .catch(err => res.json(err))
+}) 
 app.listen(PORT, () => {
     console.log(`Listening at ${PORT}`)
 })
