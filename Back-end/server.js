@@ -130,32 +130,34 @@ app.get("/sort", (req, res) => {
     .catch(err => res.json(err))
 })
 //Admin
-app.post("/login", async (req, res) => {
-    const{email,password}=req.body
-
-    try{
-        const check=await AdminModel.findOne({email:email})
-
-        if(check){
-            res.json("exist")
-        }
-        else{
-            res.json("notexist")
-        }
-
+app.post("/login",async (req, res) => {
+    try {
+        const {email, password} = req.body
+    const admins = await AdminModel.findOne({email:email})
+    if(admins.password === password){
+        res.json("Success")
+        let token = jwt.sign(
+            {
+                userId: admins._id,
+                email: admins.email
+            },
+            "secretkeyappearshere",
+            {expiresIn: "30min"}
+        )
+        console.log(token)
     }
-    catch(e){
-        res.json("fail")
+    
+    if (!admins){
+        return res.status(401).send({ message: "Invalid Email or Password" });
     }
-
-})
-app.get('/admin', (req, res) => {
-    AdminModel.find({})
-    .then(admins => res.json(admins))
-    .catch(err => res.json(err))
-})
-   
-
+    
+    
+} 
+catch (err) {
+    return res.status(500).send({message: "Internal error"})
+}
+});
+  
 app.listen(PORT, () => {
     console.log(`Listening at ${PORT}`)
 })
