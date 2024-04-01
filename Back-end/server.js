@@ -85,6 +85,7 @@ app.delete('/deleteUser/:id', (req,res) => {
     .then(res => res.json(res))
     .catch(err  => res.json(err))
 })
+//Filter interns based on state of internship
 app.get('/filter', (req, res) => {
     UserModel.find(req.query)
     .then(users => res.json(users))
