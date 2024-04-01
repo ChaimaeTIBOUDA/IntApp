@@ -78,6 +78,7 @@ app.patch('/Edit/:id',  (req, res) => {
       .then(users => res.json(users))
       .catch(err => res.json(err))
   })
+//Delete specefic intern
 app.delete('/deleteUser/:id', (req,res) => {
     const id = req.params.id
     UserModel.findByIdAndDelete({_id: id})
