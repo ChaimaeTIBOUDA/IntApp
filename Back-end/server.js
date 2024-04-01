@@ -17,16 +17,28 @@ mongoose
 .connect(process.env.MONGO_URI)
 .then(()=> console.log("DATABASE connected"))
 .catch(err=>console.log(err))
-// storage
-const Storage = multer.diskstorage({
-destination: 'uploads',
-filename:(req, file, cb) => {
-    cb(null, file.originalname)
-}})
 
-const upload = multer({
-    storage: Storage
-}).single('testImage')
+
+// storage image
+const storage = multer.diskStorage({
+    destination: function (req, file, cb)  {
+        cb(null,"images")
+    },
+    filename: function (req, file, cb) {
+        cb(null,uuidv4() + '-' + Date.now() + path.extname(file.originalname));
+    }
+    })
+    const fileFilter = (req, file, cb) => {
+        const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        if(allowedFileTypes.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(null, false);
+        }
+    }
+    let upload = multer({storage:storage, fileFilter}).single('image')
+
+
 //Routes
 // Interns
 // Add intern
