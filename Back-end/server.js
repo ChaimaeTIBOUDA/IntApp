@@ -46,6 +46,7 @@ app.post("/Add",upload,(req, res) => {
     .then(users => {console.log(users), res.json(users) })
     .catch(err => res.json(err))
 })
+//Display all interns
 app.get('/', (req, res) => {
     UserModel.find({})
     .then(users => res.json(users))
