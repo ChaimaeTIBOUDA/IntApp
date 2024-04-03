@@ -94,7 +94,7 @@ export default function Header() {
   const navigate = useNavigate()
   const [value, setValue] = React.useState(0);
   const [anchorEl, setAnchorEl] = React.useState(null);
-   const data = useFetch(`http://localhost:5000/admin`)
+   const data = useFetch(`http://localhost:5000/Admin`)
 
   const handleChange = (event, Value) => {
     setValue(Value);
@@ -147,19 +147,13 @@ export default function Header() {
       </Box>
       </Box>
       <Tooltip>
-        <IconButton
-        onClick={()=> setDrawer(true)} >
-        <Avatar sx={{bgcolor: blue[500]}}>C</Avatar>
-        
-          </IconButton>             
+      <Chip avatar = {<Avatar/>} label= "chaimae_tibouda"onClick={()=> setDrawer(true)} ></Chip>
         <SwipeableDrawer
                   anchor='right'
                   open={drawer}
                   onClose={() => setDrawer(false)}
                   >
-                    <IconButton onClick={()=> {setDrawer(false)}} sx={{mt:7, ml:-35}}>
-                      <ArrowBackIcon />
-                    </IconButton>
+                    
                     <Box
                 component="form"
                 width='300px'
@@ -172,7 +166,7 @@ export default function Header() {
                 <Typography variant='h5'>
                 Profile
             </Typography>
-            {  data && data.map((d) => (
+            {  data &&  (
                     <Box component="form"
                     sx={{
                         '& .MuiTextField-root': { m: 1, width: '30ch' },
@@ -181,7 +175,7 @@ export default function Header() {
                       autoComplete="off">
                     <TextField
                     label="User_name"
-                    defaultValue={d.username}
+                    defaultValue={data.username}
                     InputProps={{
                         readOnly: true
                     }}
@@ -191,7 +185,7 @@ export default function Header() {
                     />
                     <TextField
                     label="Last name"
-                    defaultValue={d.name}
+                    defaultValue={data.name}
                     InputProps={{
                         readOnly: true
                     }}
@@ -201,7 +195,7 @@ export default function Header() {
                     />
                     <TextField
                     label="First name"
-                    defaultValue={d.firstname}
+                    defaultValue={data.firstname}
                     InputProps={{
                         readOnly: true
                     }}
@@ -211,7 +205,7 @@ export default function Header() {
                     />
                     <TextField
                     label="Email"
-                    defaultValue={d.email}
+                    defaultValue={data.email}
                     InputProps={{
                         readOnly: true
                     }}
@@ -220,10 +214,10 @@ export default function Header() {
                     focused
                     />
                     </Box>
-                  ))}
+                  )}
               </Box>
                   </SwipeableDrawer>
-                  <IconButton onClick={()=> navigate('/Login')}>
+                  <IconButton onClick={()=> navigate('/')}>
                     <LogoutIcon />
                   </IconButton>
               </Tooltip>

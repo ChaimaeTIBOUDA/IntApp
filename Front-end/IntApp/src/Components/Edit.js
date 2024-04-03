@@ -28,6 +28,8 @@ const Edit = () => {
   const [duration, setDuration] = useState('')
   const [stat, setStat] = useState('')
     const [users, setUsers] = useState([])
+    const [image, setImage] = useState('')
+
     const { id } = useParams()
     const navigate = useNavigate()
     const Data = useFetch(`http://localhost:5000/User/` +id)
