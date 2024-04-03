@@ -15,6 +15,7 @@ import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 import axios from 'axios';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
+// hide the  input for import file 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -40,8 +41,8 @@ const Interns = () => {
   const [value, setValue] = useState()
   const sortOption = ["name"]
   const [sortValue, setSortValue] = useState()
-  const [openModal, setOpenModal] = useState(false)
 
+  // Get all Interns
   useEffect(() => {
     axios.get('http://localhost:5000')
       .then(res => {
@@ -51,9 +52,7 @@ const Interns = () => {
       .catch(err => console.log(err))
   }, [])
 
-  const handleCloseModal = () => setOpenModal(false)
-  const handleOpenModal = () => setOpenModal(true)
-
+  // handle search by name
   const handelSearch = async () => {
     return await axios.get(`http://localhost:5000/search/${value}`)
       .then((response) => {
@@ -63,7 +62,7 @@ const Interns = () => {
       })
       .catch((err) => console.log(err))
   }
-
+  // handle sort by name
   const handleSort = async (e) => {
     let value = e.target.value
     setSortValue(value)
@@ -74,6 +73,7 @@ const Interns = () => {
       })
       .catch((err) => console.log(err))
   }
+  // Degree data
   const niveau = [
     {
       value: 'Bac+2',
@@ -88,6 +88,7 @@ const Interns = () => {
       label: 'Bac+5'
     }
   ]
+  // Duration of internship data
   const Duration = [
     {
       value: '1 month',
@@ -106,6 +107,7 @@ const Interns = () => {
       label: '6 months',
     }
   ]
+  // UI Styled button
   const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(indigo[400]),
     backgroundColor: blue[400],
@@ -113,8 +115,9 @@ const Interns = () => {
       backgroundColor: blue[700],
     },
   }));
+  // Add Intern
   const handleclick = () => {
-    const Int = {name, firstname, cin, adress, phone, degree, field, duration, stat}
+    const Int = { name, firstname, cin, adress, phone, degree, field, duration, stat }
     axios.post('http://localhost:5000/Add', Int)
       .then((res) => {
         setIsDrawerOpen(false)
@@ -122,7 +125,7 @@ const Interns = () => {
         window.location.href = "./Interns"
       })
       .catch(err => console.log(err))
-    }
+  }
 
   //Filter based on statement of internship
   const handleFilter = async (statut) => {
@@ -158,7 +161,7 @@ const Interns = () => {
     }
   }
   return (
-    <div className='Stag'>
+    <div className='Intern'>
       <Typography variant='h3' gutterBottom color={blue[500]}
         sx={{ ml: { lg: 70, xs: 20, sm: 40, md: 58, xl: 90 }, mt: 12 }}
       >Interns</Typography>
@@ -426,7 +429,7 @@ const Interns = () => {
                             p: 4,
                           }}>
                           <Typography variant='h6'>Are you sure you want to delete this intern</Typography>
-                          <Button onClick={() => {handleDelete(d._id)}}>Delete</Button>
+                          <Button onClick={() => { handleDelete(d._id) }}>Delete</Button>
                           <Button>Cancel</Button>
                         </Box>
                       </Modal>
