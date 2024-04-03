@@ -4,8 +4,17 @@ import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import useFetch from '../useFetch'
 import MenuItem from '@mui/material/MenuItem';
-import { grey } from '@mui/material/colors'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import { styled } from '@mui/material/styles';
 
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  overflow: 'hidden',
+  position: 'absolute',
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
 const Edit = () => {
 
@@ -74,9 +83,16 @@ const Edit = () => {
       }}
       noValidate
       autoComplete="off">
-        <Avatar sx={{width: 80, height: 80, mx:{lg:25, xs:16, md:22}, mb:2, "&:hover": {
-          color:"red"
-        }}}/>
+        <img className='profileimg' id='profile-pic' src='https://i.pinimg.com/564x/ad/73/1c/ad731cd0da0641bb16090f25778ef0fd.jpg' />
+              <Button
+                component="label"
+                variant="contained"
+                startIcon={<CloudUploadIcon />}
+                sx={{ ml: {lg:15, sm: 12 }}}
+              >
+                Upload image
+                <VisuallyHiddenInput type="file" id='hidden-input' onClick={Pic} onChange={(e) => setImage(e.target.files[0])} />
+              </Button>
         {Data && (
                     <div>
                 <TextField
