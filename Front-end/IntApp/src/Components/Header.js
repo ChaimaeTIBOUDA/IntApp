@@ -14,14 +14,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
-import { useNavigate } from 'react-router-dom';
-import { Tab, Tabs, Tooltip, Avatar, TextField, SwipeableDrawer, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Tab, Tabs, Tooltip, Avatar, TextField, SwipeableDrawer, Typography, Link, Chip } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { blue } from '@mui/material/colors';
 import useFetch from '../useFetch';
-
-//Costumise side nav
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -89,6 +85,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function Header() {
+
   const theme = useTheme();
   const [drawer, setDrawer] = React.useState(false)
   const [open, setOpen] = React.useState(false);
@@ -97,6 +94,14 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const data = useFetch(`http://localhost:5000/Admin`)
 
+  const Profile = [
+    {
+      email: "chaimae.tibouda01@gmail.com",
+      name: "TIBOUDA",
+      firstname: "Chaimae",
+      username: "Chaimae_tibouda"
+    }
+  ]
   const handleChange = (event, Value) => {
     setValue(Value);
   };
@@ -109,12 +114,11 @@ export default function Header() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  // Items in side nav
   const menuItems = [
     {
       label: 'Home',
       icon: <HomeOutlinedIcon color='primary' />,
-      path: "/"
+      path: "/Dashboard"
     },
     {
       label: 'Interns',
@@ -143,19 +147,19 @@ export default function Header() {
           >
             <Box>
               <Tabs value={value} onChange={handleChange} >
-                <Tab label="Home" onClick={() => navigate('/')} />
+                <Tab label="Home" onClick={() => navigate('/Dashboard')} />
                 <Tab label="Interns" onClick={() => navigate('/Interns')} />
               </Tabs>
             </Box>
           </Box>
           <Tooltip>
+
             <Chip avatar={<Avatar />} label="chaimae_tibouda" onClick={() => setDrawer(true)} ></Chip>
             <SwipeableDrawer
               anchor='right'
               open={drawer}
               onClose={() => setDrawer(false)}
             >
-
               <Box
                 component="form"
                 width='300px'
@@ -165,10 +169,10 @@ export default function Header() {
                 noValidate
                 autoComplete="off"
               >
-                <Typography variant='h5'>
+                <Typography variant='h5' sx={{ mt: 8 }}>
                   Profile
                 </Typography>
-                {data && (
+                {data && data.map((d) => (
                   <Box component="form"
                     sx={{
                       '& .MuiTextField-root': { m: 1, width: '30ch' },
@@ -177,7 +181,7 @@ export default function Header() {
                     autoComplete="off">
                     <TextField
                       label="User_name"
-                      defaultValue={data.username}
+                      value={d.username}
                       InputProps={{
                         readOnly: true
                       }}
@@ -187,7 +191,7 @@ export default function Header() {
                     />
                     <TextField
                       label="Last name"
-                      defaultValue={data.name}
+                      value={d.name}
                       InputProps={{
                         readOnly: true
                       }}
@@ -197,7 +201,7 @@ export default function Header() {
                     />
                     <TextField
                       label="First name"
-                      defaultValue={data.firstname}
+                      value={d.firstname}
                       InputProps={{
                         readOnly: true
                       }}
@@ -207,7 +211,7 @@ export default function Header() {
                     />
                     <TextField
                       label="Email"
-                      defaultValue={data.email}
+                      value={d.email}
                       InputProps={{
                         readOnly: true
                       }}
@@ -216,7 +220,9 @@ export default function Header() {
                       focused
                     />
                   </Box>
-                )}
+                ))}
+
+                <Link href="/Register" underline='none' >Add another user</Link>
               </Box>
             </SwipeableDrawer>
             <IconButton onClick={() => navigate('/')}>

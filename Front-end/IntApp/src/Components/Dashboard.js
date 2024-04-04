@@ -4,6 +4,7 @@ import { blue } from '@mui/material/colors';
 import Groups2TwoToneIcon from '@mui/icons-material/Groups2TwoTone';
 import Link from '@mui/material/Link';
 import useFetch from '../useFetch';
+import '../index.css'
 import {
   LineChart,
   Line,
@@ -115,7 +116,7 @@ export default function Dashboard() {
     left: 300,
     lineHeight: "20px",
   }
-  
+
 
   const CustomizedAxisTick = (props) => {
     const { x, y, payload } = props;
@@ -137,140 +138,145 @@ export default function Dashboard() {
 
   return (
     <div className='dash'>
-      <Stack direction={{xs: 'column', sm: 'column',lg: 'row', md: 'row', xl:'row'}}>
-      <Card sx={{ mt: 10, width: '340px', height: '100px', ml:{xs:8, sm:25, lg:15, md:15, xl:35} }} >
+      <Stack direction={{ xs: 'column', sm: 'column', lg: 'row', md: 'row', xl: 'row' }}>
+        <Card sx={{ mt: 10, width: '340px', height: '100px', ml: { xs: 8, sm: 25, lg: 15, md: 15, xl: 25 } }} >
           {num_ongoing && num_ongoing.map((d) => (
             <div>
-              <Typography variant='h4' color={blue[500]} sx={{  ml:2, mt:4 }}>{d.number}</Typography>
+              <Typography variant='h4' color={blue[500]} sx={{ ml: 2, mt: 4 }}>{d.number}</Typography>
             </div>
           ))}
           <Typography component="div" variant='h6' color={blue[500]} sx={{ mx: 'auto', mt: -4, ml: 6 }}>On going Interns</Typography>
-          <Groups2TwoToneIcon sx={{ fontSize: 55, ml:32, mt:-10}} color='primary' />
-      </Card>
-      <Card sx={{ width: '340px', height: '100px', ml:{xs:8,sm:25, lg:15}, mt:{xs:2, sm:3,lg:10}}} >
+          <Groups2TwoToneIcon sx={{ fontSize: 55, ml: 32, mt: -10 }} color='primary' />
+        </Card>
+        <Card sx={{ width: '340px', height: '100px', ml: { xs: 8, sm: 25, lg: 15 }, mt: { xs: 2, sm: 3, lg: 10 } }} >
           {num_onwait && num_onwait.map((d) => (
             <div>
-             <Typography variant='h4' color={blue[500]} sx={{  ml:2, mt:4 }}>{d.number}</Typography>
+              <Typography variant='h4' color={blue[500]} sx={{ ml: 2, mt: 4 }}>{d.number}</Typography>
             </div>
           ))}
           <Typography component="div" variant='h6' color={blue[500]} sx={{ mx: 'auto', mt: -4, ml: 6 }}>On wait Interns</Typography>
-          <Groups2TwoToneIcon sx={{ fontSize: 55, ml:32, mt:-10}} color='primary' />
-      </Card>
-      <Card sx={{ width: '340px', height: '100px', ml:{xs:8,sm:25, lg:15}, mt:{xs:2, sm:3,lg:10}}} >
+          <Groups2TwoToneIcon sx={{ fontSize: 55, ml: 32, mt: -10 }} color='primary' />
+        </Card>
+        <Card sx={{ width: '340px', height: '100px', ml: { xs: 8, sm: 25, lg: 15 }, mt: { xs: 2, sm: 3, lg: 10 } }} >
           {count && count.map((d) => (
             <div>
-             <Typography variant='h4' color={blue[500]} sx={{  ml:2, mt:4 }}>{d.number}</Typography>
+              <Typography variant='h4' color={blue[500]} sx={{ ml: 2, mt: 4 }}>{d.number}</Typography>
             </div>
           ))}
           <Typography component="div" variant='h6' color={blue[500]} sx={{ mx: 'auto', mt: -4, ml: 6 }}> Interns</Typography>
-          <Groups2TwoToneIcon sx={{ fontSize: 55, ml:32, mt:-10}} color='primary' />
-      </Card>
+          <Groups2TwoToneIcon sx={{ fontSize: 55, ml: 32, mt: -10 }} color='primary' />
+        </Card>
       </Stack>
-      <Stack direction={{xs: 'column', sm: 'column',lg: 'row'}}>
+      <Stack direction={{ xs: 'column', sm: 'column', lg: 'row' }}>
         <Box>
-      <Typography variant='h4' color='primary'sx={{mt: 3, ml:{xs:8,sm:15, lg:15, md:20, xl:30}}}>Trainee rate in 2023</Typography>
-      <Card sx={{width:{lg:400, xs:350, sm:600},height:'300px', mt:2, ml:{xs:8,sm:15, lg:15, md:20, xl:30}}}>
-      <LineChart
-      width={420}
-      height={300}
-      data={Sdata}
-      margin={{
-        top: 10,
-        right:40,
-        bottom:5,
-        left:0,
-      }}
-    >
-      <XAxis dataKey="name" tick={<CustomizedAxisTick />}  />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line
-        type="monotone"
-        dataKey="ns"
-        stroke="#2979ff"
-        activeDot={{ r: 8 }}
-      />
-    </LineChart>
-    </Card>
-    </Box>
-    <Box>
-    <Typography variant='h4' color="primary" sx={{mt:2.5, ml:{xs:8, sm:15,md:20,lg:4,xl:15}}}>Yearlly Trainee rate </Typography>
-    <Card sx={{width:{lg:400, xs:350, sm:600},height:'300px', ml:{xs:8, sm:15, lg:4, md:20, xl:15}, mt:2.5}}>
-    <RadialBarChart
-      width={300}
-      height={300}
-      cx={150}
-      cy={150}
-      innerRadius={20}
-      outerRadius={140}
-      barSize={13}
-      data={Adata}
-    >
-      <Tooltip />
-      <RadialBar
-        label={{ position: "insideTop", fill: "#fff", fontSize: "12px" }}
-        background
-        dataKey="ns"
-      />
-      <Legend
-        iconSize={10}
-        width={120}
-        height={140}
-        layout="vertical"
-        verticalAlign="top"
-        wrapperStyle={style}
-      />
-      
-    </RadialBarChart>
-    </Card>
-    </Box>
-    </Stack>
-    <Box>
-      <Typography variant='h4' color='primary' sx={{ mt: 3, ml:{xs:8,sm:15, lg:15, md:20, xl:30} }}>On going Interns</Typography>
-      <Link href="/Interns" sx={{ ml:{lg: 95, xs:25.8, sm:65, xl:125}}} underline='hover' color='inherit'>Display all Interns</Link>
-      <TableContainer component={Paper} sx={{ mt: 1, ml:{xs:8, lg:15, sm:15, md:20, xl:30}, width:{
-        xs:350, lg:840, sm:600, xl:950}}}>
-        <Table>
-          <TableBody sx={{width: '680px'}}>
-            {Data && Data.map((item) => (
-              <TableRow key={item.id}>
-                <Link href={`/IntDetails/${item._id}`}>
-                  <TableCell component="th" scope="row" sx={{width: '280px'}}>
-                    {item.name} {item.firstname}
-                  </TableCell>
-                  <TableCell align="right" sx={{width: '280px'}}>{item.duration}</TableCell>
-                  <TableCell align="right" sx={{width: '280px'}}>{item.stat}</TableCell>
-                </Link>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+          <Typography variant='h4' color='primary' sx={{ mt: 3, ml: { xs: 8, sm: 15, lg: 15, md: 20, xl: 30 } }}>Trainee rate in 2023</Typography>
+          <Card sx={{ width: { lg: 450, xs: 350, sm: 600 }, height: '300px', mt: 2, ml: { xs: 8, sm: 15, lg: 15, md: 20, xl: 30 } }}>
+            <LineChart
+              width={420}
+              height={300}
+              data={Sdata}
+              margin={{
+                top: 10,
+                right: 40,
+                bottom: 5,
+                left: 0,
+              }}
+            >
+              <XAxis dataKey="name" tick={<CustomizedAxisTick />} />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="ns"
+                stroke="#2979ff"
+                activeDot={{ r: 8 }}
+              />
+            </LineChart>
+          </Card>
+        </Box>
+        <Box>
+          <Typography variant='h4' color="primary" sx={{ mt: 2.5, ml: { xs: 8, sm: 15, md: 20, lg: 4, xl: 25 } }}>Yearlly Trainee rate </Typography>
+          <Card sx={{ width: { lg: 450, xs: 350, sm: 600 }, height: '300px', ml: { xs: 8, sm: 15, lg: 4, md: 20, xl: 20 }, mt: 2.5 }}>
+            <RadialBarChart
+              width={300}
+              height={300}
+              cx={150}
+              cy={150}
+              innerRadius={20}
+              outerRadius={140}
+              barSize={13}
+              data={Adata}
+            >
+              <Tooltip />
+              <RadialBar
+                label={{ position: "insideTop", fill: "#fff", fontSize: "12px" }}
+                background
+                dataKey="ns"
+              />
+              <Legend
+                iconSize={10}
+                width={120}
+                height={140}
+                layout="vertical"
+                verticalAlign="top"
+                wrapperStyle={style}
+              />
+
+            </RadialBarChart>
+          </Card>
+        </Box>
+      </Stack>
+      <Box>
+        <Typography variant='h4' color='primary' sx={{ mt: 3, ml: { xs: 8, sm: 15, lg: 15, md: 20, xl: 30 } }}>On going Interns</Typography>
+        <Link href="/Interns" sx={{ ml: { lg: 95, xs: 25.8, sm: 65, xl: 125 } }} underline='hover' color='inherit'>Display all Interns</Link>
+        <TableContainer component={Paper} sx={{
+          mt: 1, ml: { xs: 8, lg: 15, sm: 15, md: 20, xl: 30 }, width: {
+            xs: 350, lg: 840, sm: 600, xl: 1050
+          }
+        }}>
+          <Table>
+            <TableBody sx={{ width: '700px' }}>
+              {Data && Data.map((item) => (
+                <TableRow key={item.id}>
+                  <Link href={`/IntDetails/${item._id}`}>
+                    <TableCell component="th" scope="row" sx={{ width: '280px' }}>
+                      {item.name} {item.firstname}
+                    </TableCell>
+                    <TableCell align="right" sx={{ width: '280px' }}>{item.duration}</TableCell>
+                    <TableCell align="right" sx={{ width: '280px' }}>{item.stat}</TableCell>
+                  </Link>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Box>
       <Box>
-      <Typography variant='h4' color='primary' sx={{ mt: 3, ml:{xs:8, lg:15, sm:15, md:20, xl:30} }}>On wait Interns</Typography>
-      <Link href="/Interns" sx={{ ml: {lg: 95, xs:25.8, sm:65, xl:125}}} underline='hover' color='inherit' >Display all Interns</Link>
-      <TableContainer component={Paper} sx={{ mt: 1, ml:{xs:8, lg:15, sm:15, md:20, xl:30}, width:{
-        xs: 350, lg: 840, sm:600, xl:950
-      } }}>
-        <Table>
-          <TableBody>
-            {Data2 && Data2.map((item) => (
-              <TableRow key={item._id}>
-                <Link href={`/IntDetails/${item._id}`}>
-                  <TableCell component="th" scope="row" sx={{width: '280px'}}>
-                    {item.name} {item.firstname}
-                  </TableCell>
-                  <TableCell align="right" sx={{width: '280px'}}>{item.duration}</TableCell>
-                  <TableCell align="right" sx={{width: '280px'}}>{item.stat}</TableCell>
-                </Link>
-              </TableRow>
+        <Typography variant='h4' color='primary' sx={{ mt: 3, ml: { xs: 8, lg: 15, sm: 15, md: 20, xl: 30 } }}>On wait Interns</Typography>
+        <Link href="/Interns" sx={{ ml: { lg: 95, xs: 25.8, sm: 65, xl: 125 } }} underline='hover' color='inherit' >Display all Interns</Link>
+        <TableContainer component={Paper} sx={{
+          mt: 1, ml: { xs: 8, lg: 15, sm: 15, md: 20, xl: 30 }, width: {
+            xs: 350, lg: 840, sm: 600, xl: 1050
+          }
+        }}>
+          <Table>
+            <TableBody>
+              {Data2 && Data2.map((item) => (
+                <TableRow key={item._id}>
+                  <Link href={`/IntDetails/${item._id}`}>
+                    <TableCell component="th" scope="row" sx={{ width: '280px' }}>
+                      {item.name} {item.firstname}
+                    </TableCell>
+                    <TableCell align="right" sx={{ width: '280px' }}>{item.duration}</TableCell>
+                    <TableCell align="right" sx={{ width: '280px' }}>{item.stat}</TableCell>
+                  </Link>
+                </TableRow>
 
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Box>
     </div>
 

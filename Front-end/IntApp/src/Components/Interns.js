@@ -1,9 +1,9 @@
 import React from 'react'
-import { Avatar, Button, Card, CardActionArea, CardContent, Chip, Dialog, DialogActions, DialogTitle, FormControl, IconButton, Input, InputLabel, Select, Stack, Tooltip } from '@mui/material'
+import { Avatar, Button, Card, CardActionArea, CardContent, Chip, Dialog, DialogActions, DialogTitle, FormControl, IconButton, Input, InputLabel, Modal, Select, Stack, Tooltip } from '@mui/material'
 import { blue, indigo, grey } from '@mui/material/colors';
 import { styled } from '@mui/material/styles';
 import Pagination from '@mui/material/Pagination';
-import { useNavigate, Link} from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import { Box, Typography, Drawer } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,50 +13,67 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment';
 import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 import axios from 'axios';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  overflow: 'hidden',
+  position: 'absolute',
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
 const Interns = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [name, setName] = useState()
-  const [firstname, setFirstname] = useState()
-  const [cin, setCin] = useState()
-  const [adress, setAdress] = useState()
-  const [phone, setPhone] = useState()
-  const [degree, setDegree] = useState()
-  const [field, setField] = useState()
-  const [duration, setDuration] = useState()
-  const [stat, setStat] = useState()
+  const [name, setName] = useState('')
+  const [firstname, setFirstname] = useState('')
+  const [cin, setCin] = useState('')
+  const [adress, setAdress] = useState('')
+  const [phone, setPhone] = useState('')
+  const [degree, setDegree] = useState('')
+  const [field, setField] = useState('')
+  const [duration, setDuration] = useState('')
+  const [stat, setStat] = useState('')
+  const [image, setImage] = useState('')
   const [users, setUsers] = useState([])
   const [value, setValue] = useState()
   const sortOption = ["name"]
   const [sortValue, setSortValue] = useState()
-  useEffect(()=> {
-      axios.get('http://localhost:5000')
+  const [openModal, setOpenModal] = useState(false)
+
+  useEffect(() => {
+    axios.get('http://localhost:5000')
       .then(res => {
         console.log(res)
-        setUsers(res.data)})
+        setUsers(res.data)
+      })
       .catch(err => console.log(err))
   }, [])
 
+  const handleCloseModal = () => setOpenModal(false)
+  const handleOpenModal = () => setOpenModal(true)
+
   const handelSearch = async () => {
     return await axios.get(`http://localhost:5000/search/${value}`)
-    .then((response) => {
-      console.log(response)
-      setUsers(response.data)
-      setValue("")
-    })
-    .catch((err)=> console.log(err))
+      .then((response) => {
+        console.log(response)
+        setUsers(response.data)
+        setValue("")
+      })
+      .catch((err) => console.log(err))
   }
 
   const handleSort = async (e) => {
     let value = e.target.value
     setSortValue(value)
     return await axios.get(`http://localhost:5000/sort`)
-    .then((response) => {
-      console.log(response)
-      setUsers(response.data)
-    })
-    .catch((err)=> console.log(err))
-  } 
+      .then((response) => {
+        console.log(response)
+        setUsers(response.data)
+      })
+      .catch((err) => console.log(err))
+  }
   const niveau = [
     {
       value: 'Bac+2',
@@ -71,7 +88,6 @@ const Interns = () => {
       label: 'Bac+5'
     }
   ]
-  // Duration of internship data
   const Duration = [
     {
       value: '1 month',
@@ -90,7 +106,6 @@ const Interns = () => {
       label: '6 months',
     }
   ]
-  // UI Styled button
   const ColorButton = styled(Button)(({ theme }) => ({
     color: theme.palette.getContrastText(indigo[400]),
     backgroundColor: blue[400],
@@ -98,7 +113,6 @@ const Interns = () => {
       backgroundColor: blue[700],
     },
   }));
-  // Add Intern
   const handleclick = () => {
     const Int = { name, firstname, cin, adress, phone, degree, field, duration, stat }
     axios.post('http://localhost:5000/Add', Int)
@@ -144,7 +158,7 @@ const Interns = () => {
     }
   }
   return (
-    <div className='Intern'>
+    <div className='Stag'>
       <Typography variant='h3' gutterBottom color={blue[500]}
         sx={{ ml: { lg: 70, xs: 20, sm: 40, md: 58, xl: 90 }, mt: 12 }}
       >Interns</Typography>
