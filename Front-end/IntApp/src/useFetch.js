@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react'
 import axios from 'axios'
+// simplify the GET method to display interns 
 const useFetch = (url) => {
     const [data, setData] = useState()
     useEffect(() => {

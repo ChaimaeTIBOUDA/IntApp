@@ -16,7 +16,8 @@ const Login = () => {
          axios.post('http://localhost:5000/login', {email, password})
             .then(res => {
                 console.log(res)
-                if(res.data === "Success"){
+                if(res.status === 201){
+                    sessionStorage.setItem("token", res.data.token)
                     navigate('/Dashboard')
                 }else {
                     alert("Email or password incorrect")

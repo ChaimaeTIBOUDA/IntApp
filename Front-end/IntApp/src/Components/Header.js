@@ -15,12 +15,13 @@ import ListItemText from '@mui/material/ListItemText';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
 import { useNavigate } from 'react-router-dom';
-import { Tab, Tabs, Tooltip, Avatar,  TextField, SwipeableDrawer, Typography } from '@mui/material';
+import { Tab, Tabs, Tooltip, Avatar, TextField, SwipeableDrawer, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { blue } from '@mui/material/colors';
 import useFetch from '../useFetch';
 
+//Costumise side nav
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -94,7 +95,7 @@ export default function Header() {
   const navigate = useNavigate()
   const [value, setValue] = React.useState(0);
   const [anchorEl, setAnchorEl] = React.useState(null);
-   const data = useFetch(`http://localhost:5000/admin`)
+  const data = useFetch(`http://localhost:5000/Admin`)
 
   const handleChange = (event, Value) => {
     setValue(Value);
@@ -108,14 +109,15 @@ export default function Header() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  // Items in side nav
   const menuItems = [
     {
-      label:'Home',
+      label: 'Home',
       icon: <HomeOutlinedIcon color='primary' />,
       path: "/"
     },
     {
-      label:'Interns',
+      label: 'Interns',
       icon: <Person2OutlinedIcon color='primary' />,
       path: "/Interns"
     },
@@ -123,7 +125,7 @@ export default function Header() {
 
   return (
     <>
-      <AppBar position="fixed" open={open} color="inherit" sx={{height:'56px'}}>
+      <AppBar position="fixed" open={open} color="inherit" sx={{ height: '56px' }}>
         <Toolbar>
           <IconButton
             onClick={handleDrawerOpen}
@@ -137,30 +139,24 @@ export default function Header() {
             <MenuIcon />
           </IconButton>
           <Box
-                sx={{ flexGrow: 1}}
-              >
-                <Box>
-        <Tabs value={value} onChange={handleChange} >
-          <Tab label="Home" onClick={() => navigate('/')}/>
-          <Tab label="Interns" onClick={() => navigate('/Interns')}/>
-        </Tabs>
-      </Box>
-      </Box>
-      <Tooltip>
-        <IconButton
-        onClick={()=> setDrawer(true)} >
-        <Avatar sx={{bgcolor: blue[500]}}>C</Avatar>
-        
-          </IconButton>             
-        <SwipeableDrawer
-                  anchor='right'
-                  open={drawer}
-                  onClose={() => setDrawer(false)}
-                  >
-                    <IconButton onClick={()=> {setDrawer(false)}} sx={{mt:7, ml:-35}}>
-                      <ArrowBackIcon />
-                    </IconButton>
-                    <Box
+            sx={{ flexGrow: 1 }}
+          >
+            <Box>
+              <Tabs value={value} onChange={handleChange} >
+                <Tab label="Home" onClick={() => navigate('/')} />
+                <Tab label="Interns" onClick={() => navigate('/Interns')} />
+              </Tabs>
+            </Box>
+          </Box>
+          <Tooltip>
+            <Chip avatar={<Avatar />} label="chaimae_tibouda" onClick={() => setDrawer(true)} ></Chip>
+            <SwipeableDrawer
+              anchor='right'
+              open={drawer}
+              onClose={() => setDrawer(false)}
+            >
+
+              <Box
                 component="form"
                 width='300px'
                 mt={1}
@@ -170,63 +166,63 @@ export default function Header() {
                 autoComplete="off"
               >
                 <Typography variant='h5'>
-                Profile
-            </Typography>
-            {  data && data.map((d) => (
-                    <Box component="form"
+                  Profile
+                </Typography>
+                {data && (
+                  <Box component="form"
                     sx={{
-                        '& .MuiTextField-root': { m: 1, width: '30ch' },
+                      '& .MuiTextField-root': { m: 1, width: '30ch' },
+                    }}
+                    noValidate
+                    autoComplete="off">
+                    <TextField
+                      label="User_name"
+                      defaultValue={data.username}
+                      InputProps={{
+                        readOnly: true
                       }}
-                      noValidate
-                      autoComplete="off">
-                    <TextField
-                    label="User_name"
-                    defaultValue={d.username}
-                    InputProps={{
-                        readOnly: true
-                    }}
-                    focused
-                    color='primary'
-                    margin='normal'
+                      focused
+                      color='primary'
+                      margin='normal'
                     />
                     <TextField
-                    label="Last name"
-                    defaultValue={d.name}
-                    InputProps={{
+                      label="Last name"
+                      defaultValue={data.name}
+                      InputProps={{
                         readOnly: true
-                    }}
-                    color='primary'
-                    margin='normal'
-                    focused
+                      }}
+                      color='primary'
+                      margin='normal'
+                      focused
                     />
                     <TextField
-                    label="First name"
-                    defaultValue={d.firstname}
-                    InputProps={{
+                      label="First name"
+                      defaultValue={data.firstname}
+                      InputProps={{
                         readOnly: true
-                    }}
-                    color='primary'
-                    margin='normal'
-                    focused
+                      }}
+                      color='primary'
+                      margin='normal'
+                      focused
                     />
                     <TextField
-                    label="Email"
-                    defaultValue={d.email}
-                    InputProps={{
+                      label="Email"
+                      defaultValue={data.email}
+                      InputProps={{
                         readOnly: true
-                    }}
-                    color='primary'
-                    margin='normal'
-                    focused
+                      }}
+                      color='primary'
+                      margin='normal'
+                      focused
                     />
-                    </Box>
-                  ))}
+                  </Box>
+                )}
               </Box>
-                  </SwipeableDrawer>
-                  <IconButton onClick={()=> navigate('/Login')}>
-                    <LogoutIcon />
-                  </IconButton>
-              </Tooltip>
+            </SwipeableDrawer>
+            <IconButton onClick={() => navigate('/')}>
+              <LogoutIcon />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -236,18 +232,18 @@ export default function Header() {
           </IconButton>
         </DrawerHeader>
         <List>
-        {menuItems.map((item) => (
-                  <ListItemButton
-                  key={item.label}
-                  onClick={() => navigate(item.path)}
-                  >
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.label}/>
-                </ListItemButton>
-               ))}
+          {menuItems.map((item) => (
+            <ListItemButton
+              key={item.label}
+              onClick={() => navigate(item.path)}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.label} />
+            </ListItemButton>
+          ))}
         </List>
       </Drawer>
-      
+
     </>
   );
 }
