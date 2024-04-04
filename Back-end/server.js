@@ -126,6 +126,15 @@ app.get("/onwait", async (req, res) => {
 .then(users => res.json(users))
 .catch(err => res.json(err))
 })
+app.get("/count", async (req, res) => {
+    UserModel.aggregate([{
+         $match: {}
+     }, 
+     {$count: 'number'}
+ ])
+ .then(users => res.json(users))
+ .catch(err => res.json(err))
+ })
 //Search for intern by name
 app.get("/search/:key", async (req, res) => {
     let result = await UserModel.find({

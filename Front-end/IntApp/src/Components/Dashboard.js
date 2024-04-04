@@ -21,6 +21,7 @@ export default function Dashboard() {
   const Data2 = useFetch(`http://localhost:5000/filter/?stat=${"on wait"}`)
   const num_ongoing = useFetch(`http://localhost:5000/ongoing`)
   const num_onwait = useFetch(`http://localhost:5000/onwait`)
+  const count = useFetch(`http://localhost:5000/count`)
 
   const Sdata = [
     {
@@ -153,6 +154,15 @@ export default function Dashboard() {
             </div>
           ))}
           <Typography component="div" variant='h6' color={blue[500]} sx={{ mx: 'auto', mt: -4, ml: 6 }}>On wait Interns</Typography>
+          <Groups2TwoToneIcon sx={{ fontSize: 55, ml:32, mt:-10}} color='primary' />
+      </Card>
+      <Card sx={{ width: '340px', height: '100px', ml:{xs:8,sm:25, lg:15}, mt:{xs:2, sm:3,lg:10}}} >
+          {count && count.map((d) => (
+            <div>
+             <Typography variant='h4' color={blue[500]} sx={{  ml:2, mt:4 }}>{d.number}</Typography>
+            </div>
+          ))}
+          <Typography component="div" variant='h6' color={blue[500]} sx={{ mx: 'auto', mt: -4, ml: 6 }}> Interns</Typography>
           <Groups2TwoToneIcon sx={{ fontSize: 55, ml:32, mt:-10}} color='primary' />
       </Card>
       </Stack>
